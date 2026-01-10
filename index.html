@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Каталог парфюмерии</title>
+
+  <!-- Fonts (swap to your brand fonts if needed) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip" href="#content">К содержимому</a>
+
+  <header class="header" data-elevate>
+    <div class="container header__row">
+      <div class="brand">
+        <div class="brand__mark" aria-hidden="true"></div>
+        <div class="brand__text">
+          <div class="brand__name">Local</div>
+          <div class="brand__sub">каталог парфюмерии</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Главное меню">
+        <a class="nav__link" href="#categories">Категории</a>
+        <a class="nav__link" href="#catalog">Каталог</a>
+        <a class="nav__link" href="#about">О проекте</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn" id="openSearch" type="button" aria-label="Открыть поиск">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 18a8 8 0 1 1 5.293-14.001A8 8 0 0 1 10 18Zm11 3-6.1-6.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <button class="pill-btn" id="openFilters" type="button">Фильтры</button>
+        <button class="pill-btn pill-btn--dark" id="openCart" type="button">
+          Избранное <span class="pill-badge" id="favCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero" aria-label="Витрина">
+      <div class="hero__media" role="img" aria-label="Фоновое изображение"></div>
+
+      <div class="container hero__inner">
+        <div class="hero__card">
+          <div class="kicker"></div>
+          <h1 class="hero__title">Каталог парфюмерии<br><span class="muted"></span></h1>
+          <p class="hero__lead">
+            
+          </p>
+
+          <div class="hero__cta">
+            <a class="pill-btn pill-btn--accent" href="#catalog">Смотреть каталог</a>
+            <button class="pill-btn" type="button" id="scrollToCategories">Категории</button>
+          </div>
+
+          <div class="hero__meta">
+            <div class="stat">
+              <div class="stat__num">6</div>
+              <div class="stat__label">категорий<br>в примере</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">24</div>
+              <div class="stat__label">товара<br>в демо-данных</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">1</div>
+              <div class="stat__label">файл данных<br>(JS)</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero__side">
+          <div class="side-card">
+            <div class="side-card__title">Быстрый поиск</div>
+            <div class="search">
+              <input id="q" class="search__input" type="search" placeholder="Напр. 'ваниль', 'Tom', 'ниш'" autocomplete="off" />
+              <button class="search__btn" id="clearSearch" type="button" aria-label="Очистить поиск">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+
+            <div class="chips" id="quickChips" aria-label="Быстрые фильтры"></div>
+          </div>
+
+          <div class="side-card">
+            <div class="side-card__title">Сортировка</div>
+            <label class="field">
+              <span class="field__label">Порядок</span>
+              <select id="sort" class="field__control">
+                <option value="popular">Популярные</option>
+                <option value="new">Новинки</option>
+                <option value="price-asc">Цена ↑</option>
+                <option value="price-desc">Цена ↓</option>
+                <option value="name-asc">Название A→Я</option>
+              </select>
+            </label>
+
+            <div class="toggle-row">
+              <button class="seg-btn seg-btn--active" id="viewGrid" type="button">Сетка</button>
+              <button class="seg-btn" id="viewList" type="button">Список</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Категории</div>
+            <h2 class="section-title">Блок «оглавления»</h2>
+          </div>
+          <p class="section-note">
+            
+          </p>
+        </div>
+
+        <div class="tiles" id="categoryTiles" aria-label="Категории товаров"></div>
+      </div>
+    </section>
+
+    <section class="section section--tint" id="catalog">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Каталог</div>
+            <h2 class="section-title">Товары</h2>
+          </div>
+
+          <div class="section-actions">
+            <div class="counter" id="resultCount">—</div>
+            <button class="pill-btn" id="resetAll" type="button">Сбросить</button>
+          </div>
+        </div>
+
+        <div class="layout">
+          <!-- Filters (desktop) -->
+          <aside class="filters" aria-label="Фильтры" id="filtersPanel">
+            <div class="filters__head">
+              <div class="filters__title">Фильтры</div>
+              <button class="icon-btn" id="closeFilters" type="button" aria-label="Закрыть фильтры">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+
+            <div class="filters__body">
+              <label class="field">
+                <span class="field__label">Категория</span>
+                <select id="cat" class="field__control"></select>
+              </label>
+
+              <div class="field">
+                <div class="field__label">Концентрация</div>
+                <div class="checklist" id="concList"></div>
+              </div>
+
+              <div class="field">
+                <div class="field__label">Ноты</div>
+                <div class="checklist" id="notesList"></div>
+              </div>
+
+              <div class="field">
+                <div class="field__label">Цена (₽)</div>
+                <div class="range">
+                  <input type="range" id="priceMax" min="0" max="20000" step="500" value="20000" />
+                  <div class="range__row">
+                    <span class="k">до</span>
+                    <span class="v" id="priceMaxLabel">—</span>
+                  </div>
+                </div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" id="inStockOnly" />
+                <span class="switch__ui" aria-hidden="true"></span>
+                <span class="switch__label">Только в наличии</span>
+              </label>
+            </div>
+
+            <div class="filters__foot">
+              <button class="pill-btn pill-btn--accent" id="applyFilters" type="button">Применить</button>
+              <button class="pill-btn" id="resetFilters" type="button">Сбросить</button>
+            </div>
+          </aside>
+
+          <!-- Products -->
+          <div class="products">
+            <div class="products__grid" id="productGrid" aria-live="polite"></div>
+
+            <div class="empty" id="emptyState" hidden>
+              <div class="empty__title">Ничего не найдено</div>
+              <div class="empty__text">Попробуйте изменить фильтры или запрос поиска.</div>
+              <button class="pill-btn" id="emptyReset" type="button">Сбросить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">О проекте</div>
+            <h2 class="section-title">Что внутри</h2>
+          </div>
+        </div>
+
+        <div class="about">
+          <div class="about__card">
+            <h3 class="h3">Стиль</h3>
+            <p>
+              Добавлю текст потом
+            </p>
+          </div>
+
+          <div class="about__card">
+            <h3 class="h3">Данные</h3>
+            <p>
+              <code></code> 
+            </p>
+          </div>
+
+          <div class="about__card">
+            <h3 class="h3">Компоненты</h3>
+            <p>
+               <code></code>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__row">
+      <div class="footer__left">
+        <div class="brand brand--small">
+          <div class="brand__mark" aria-hidden="true"></div>
+          <div class="brand__text">
+            <div class="brand__name">Local</div>
+            <div class="brand__sub">макет • HTML/CSS/JS</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer__right">
+        <a class="footer__link" href="#content">Наверх</a>
+        <span class="footer__sep">•</span>
+        <span class="footer__muted">Подобрать контент под бренд</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Product modal -->
+  <dialog class="modal" id="productModal" aria-label="Карточка товара">
+    <div class="modal__inner">
+      <button class="icon-btn modal__close" id="closeModal" type="button" aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="modal__grid">
+        <div class="modal__media" id="modalMedia" role="img" aria-label="Изображение товара"></div>
+
+        <div class="modal__content">
+          <div class="modal__top">
+            <div class="kicker" id="modalKicker">—</div>
+            <h3 class="modal__title" id="modalTitle">—</h3>
+            <div class="modal__price">
+              <span class="price" id="modalPrice">—</span>
+              <span class="pill" id="modalStock">—</span>
+            </div>
+          </div>
+
+          <p class="modal__desc" id="modalDesc">—</p>
+
+          <div class="spec">
+            <div class="spec__title">Характеристики</div>
+            <dl class="spec__grid" id="modalSpec"></dl>
+          </div>
+
+          <div class="modal__actions">
+            <button class="pill-btn pill-btn--accent" id="toggleFav" type="button">В избранное</button>
+            <button class="pill-btn" id="copyLink" type="button">Скопировать ссылку</button>
+          </div>
+
+          <div class="modal__hint muted">
+            <code></code> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Favorites drawer -->
+  <dialog class="drawer" id="favDrawer" aria-label="Избранное">
+    <div class="drawer__inner">
+      <div class="drawer__head">
+        <div class="drawer__title">Избранное</div>
+        <button class="icon-btn" id="closeFav" type="button" aria-label="Закрыть избранное">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="drawer__body" id="favList"></div>
+      <div class="drawer__foot">
+        <button class="pill-btn" id="clearFav" type="button">Очистить</button>
+        <button class="pill-btn pill-btn--accent" id="closeFav2" type="button">Готово</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>
